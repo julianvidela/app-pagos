@@ -6,12 +6,12 @@ import { createClient } from '@supabase/supabase-js';
 const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL as string
 const supabaseSecret = process.env.NEXT_SUPABASE_SECRET_KEY as string
 
-const mercadopago = new MercadoPagoConfig({accessToken: process.env.MP_ACCESS_TOKEN!,});
+const mercadopago = new MercadoPagoConfig({accessToken: process.env.MP_ACCESS_TOKEN!});
 const supabase = createClient(supabaseUrl,supabaseSecret)
 
 
-export async function POST(request: NextRequest) {
-  const body = await request.json().then((data) => data as { data: { id: string } });
+export async function POST(req: NextRequest) {
+  const body = await req.json().then((data) => data as { data: { id: string } });
 
   const payment = await new Payment(mercadopago).get({ id: body.data.id });
 
