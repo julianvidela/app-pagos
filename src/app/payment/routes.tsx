@@ -11,9 +11,7 @@ const supabase = createClient(supabaseUrl,supabaseSecret)
 
 
 export async function POST(request: NextRequest) {
-  const body = await request
-    .json()
-    .then((data) => data as { data: { id: string } });
+  const body = await request.json().then((data) => data as { data: { id: string } });
 
   const payment = await new Payment(mercadopago).get({ id: body.data.id });
 
